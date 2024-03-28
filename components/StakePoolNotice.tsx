@@ -1,7 +1,7 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { defaultSecondaryColor } from 'helpers/mapping'
 import { contrastify } from 'common/colors'
+import { defaultSecondaryColor } from 'helpers/mapping'
 import { useStakePoolData } from 'hooks/useStakePoolData'
 import { useStakePoolMetadataCtx } from 'providers/StakePoolMetadataProvider'
 

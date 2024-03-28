@@ -1,5 +1,4 @@
 import { FaDiscord } from 'react-icons/fa'
-import { SOCIALS } from './Footer'
 
 export const FooterSlim = () => {
   return (

@@ -21,7 +21,7 @@ export const useHandleExecuteTransaction = () => {
         transaction.serialize(),
         {
           commitment: 'confirmed',
-        }
+        },
       )
       return txid
     },
@@ -45,6 +45,6 @@ export const useHandleExecuteTransaction = () => {
           description: `Transaction failed: ${e}`,
         })
       },
-    }
+    },
   )
 }

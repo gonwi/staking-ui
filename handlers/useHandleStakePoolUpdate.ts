@@ -1,7 +1,7 @@
 import { executeTransaction, tryPublicKey } from '@cardinal/common'
-import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { withUpdateStakePool } from '@cardinal/staking/dist/cjs/programs/stakePool/transaction'
 import { BN } from '@coral-xyz/anchor'
+import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { useWallet } from '@solana/wallet-adapter-react'
 import type { PublicKey } from '@solana/web3.js'
 import { SystemProgram, Transaction } from '@solana/web3.js'
@@ -120,6 +120,6 @@ export const useHandleStakePoolUpdate = () => {
           description: handleError(e, `${e}`),
         })
       },
-    }
+    },
   )
 }

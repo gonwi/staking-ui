@@ -13,6 +13,7 @@ export const AuthorizationTipTwo = () => {
           width={600}
           layout="fixed"
           objectFit="contain"
+          alt="Tip two"
         />
       </div>
       <BodyCopy className="flex items-center justify-center text-center">

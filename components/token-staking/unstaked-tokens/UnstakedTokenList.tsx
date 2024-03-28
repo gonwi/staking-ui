@@ -1,11 +1,11 @@
 import type { ReceiptType } from '@cardinal/staking/dist/cjs/programs/stakePool'
+import type { UseMutationResult } from '@tanstack/react-query'
 import { notify } from 'common/Notification'
 import type { AllowedTokenData } from 'hooks/useAllowedTokenDatas'
 import { useAllowedTokenDatas } from 'hooks/useAllowedTokenDatas'
 import { isStakePoolV2, useStakePoolData } from 'hooks/useStakePoolData'
 import { useStakePoolMetadataCtx } from 'providers/StakePoolMetadataProvider'
 import { useState } from 'react'
-import type { UseMutationResult } from '@tanstack/react-query'
 
 import { DEFAULT_PAGE, PAGE_SIZE } from '@/components/token-staking/constants'
 import { TokenListEmptyState } from '@/components/token-staking/token-list/TokenListEmptyState'

@@ -2,6 +2,7 @@ import { shortPubKey } from '@cardinal/common'
 import { css } from '@emotion/react'
 import type { StakePool } from 'hooks/useAllStakePools'
 import { compareStakePools, totalStaked } from 'hooks/useAllStakePools'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { transparentize } from 'polished'
 
@@ -37,12 +38,12 @@ export const CollectionsList = ({ configs }: { configs?: StakePool[] }) => {
                       !!trySeq(() =>
                         transparentize(
                           0.8,
-                          config.stakePoolMetadata?.colors?.primary ?? ''
-                        )
+                          config.stakePoolMetadata?.colors?.primary ?? '',
+                        ),
                       ) &&
                       transparentize(
                         0.8,
-                        config.stakePoolMetadata?.colors?.primary
+                        config.stakePoolMetadata?.colors?.primary,
                       )};
                     }
                   `}
@@ -51,14 +52,14 @@ export const CollectionsList = ({ configs }: { configs?: StakePool[] }) => {
                       `/${
                         config.stakePoolMetadata?.name ??
                         config.stakePoolData.pubkey.toString()
-                      }${location.search}`
+                      }${location.search}`,
                     )
                   }}
                 >
                   <div className="flex flex-1 items-center">
                     <div className="flex items-center gap-5 md:flex-row">
                       {config.stakePoolMetadata?.imageUrl ? (
-                        <img
+                        <Image
                           className={`my-auto h-full max-h-[50px] min-w-[50px] max-w-[150px] rounded-xl ${
                             config.stakePoolMetadata.contrastHomepageBkg &&
                             `bg-white bg-opacity-20 p-2`
@@ -71,7 +72,7 @@ export const CollectionsList = ({ configs }: { configs?: StakePool[] }) => {
                         />
                       ) : (
                         <div className="flex h-[50px] w-[50px] items-center justify-center rounded-full text-lg text-white text-opacity-40">
-                          <img
+                          <Image
                             className={`h-full max-h-[40px] max-w-[150px] rounded-xl`}
                             src={'/cardinal-crosshair.svg'}
                             alt={config.stakePoolData.pubkey.toString()}

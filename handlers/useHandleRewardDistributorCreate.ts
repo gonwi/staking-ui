@@ -1,12 +1,12 @@
 import { executeTransaction } from '@cardinal/common'
+import { RewardDistributorKind } from '@cardinal/staking/dist/cjs/programs/rewardDistributor'
+import { withInitRewardDistributor } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/transaction'
+import { BN } from '@coral-xyz/anchor'
 import {
   DEFAULT_PAYMENT_INFO,
   findRewardDistributorId,
   rewardsCenterProgram,
 } from '@l1t/rewards-center'
-import { RewardDistributorKind } from '@cardinal/staking/dist/cjs/programs/rewardDistributor'
-import { withInitRewardDistributor } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/transaction'
-import { BN } from '@coral-xyz/anchor'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { PublicKey, Transaction } from '@solana/web3.js'
 import { useMutation } from '@tanstack/react-query'
@@ -47,7 +47,7 @@ export const useHandleRewardDistributorCreate = () => {
       if (isStakePoolV2(stakePool.data.parsed)) {
         /////////////////// V1 ///////////////////
         const rewardDistributorId = findRewardDistributorId(
-          stakePool.data.pubkey
+          stakePool.data.pubkey,
         )
         const ix = await program.methods
           .initRewardDistributor({
@@ -117,6 +117,6 @@ export const useHandleRewardDistributorCreate = () => {
           description: handleError(e, `${e}`),
         })
       },
-    }
+    },
   )
 }

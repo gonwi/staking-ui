@@ -16,12 +16,10 @@ export const RadioGroup = ({
   return (
     <>
       {/* https://github.com/tailwindlabs/headlessui/issues/1523 */}
-      {/* @ts-expect-error */}
       <RadioGroupHeadless value={selected || options[0]} onChange={onChange}>
         <div className="flex">
           {options.map((option, i) => (
             // https://github.com/tailwindlabs/headlessui/issues/1523
-            // @ts-expect-error
             <RadioGroupHeadless.Option
               key={option.label}
               value={option}

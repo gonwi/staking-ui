@@ -1,14 +1,15 @@
+import React from 'react'
+
 export type Badge = {
   badgeType: 'recent' | 'trending' | 'expiration'
   position?: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right'
-  content?: JSX.Element | string
+  content?: React.JSX.Element | string
 }
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  header?: string | JSX.Element
-  subHeader?: string | JSX.Element
+  header?: string | React.JSX.Element
+  subHeader?: string | React.JSX.Element
   badges?: Badge[]
   hero?: JSX.Element
-  content?: JSX.Element
   skeleton?: boolean
   className?: string
 }

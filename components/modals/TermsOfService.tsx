@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { useModal } from 'providers/ModalProvider'
 
 type Props = {
@@ -10,7 +11,7 @@ const TermsOfService = ({ handleAccept }: Props) => {
   return (
     <div className="space-y-8 rounded-xl bg-gray-900 p-12 shadow-2xl">
       <div className="flex w-full items-center justify-center py-4">
-        <img
+        <Image
           className={`max-h-28 rounded-xl fill-red-600`}
           src={'/cardinal-crosshair.svg'}
           alt="Cardinal logo"
@@ -22,10 +23,7 @@ const TermsOfService = ({ handleAccept }: Props) => {
           Terms of Service
         </a>{' '}
         and{' '}
-        <a
-          href="/docs/privacy-staking.pdf"
-          className="text-primary underline"
-        >
+        <a href="/docs/privacy-staking.pdf" className="text-primary underline">
           Privacy Policy
         </a>
         .
@@ -48,9 +46,15 @@ const TermsOfService = ({ handleAccept }: Props) => {
   )
 }
 
+interface TermsOfServiceModalParams {
+  handleAccept: () => void // Based on the usage in TermsOfService
+  // Add other necessary parameters for your modal here
+}
+
 export const useTermsOfServiceModal = () => {
   const { showModal } = useModal()
   return {
-    showModal: (params: any) => showModal(<TermsOfService {...params} />),
+    showModal: (params: TermsOfServiceModalParams) =>
+      showModal(<TermsOfService {...params} />),
   }
 }

@@ -9,10 +9,10 @@ import {
   Transaction,
 } from '@solana/web3.js'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import type { StakePoolMetadata } from 'helpers/mapping'
 import { handleError } from 'common/errors'
 import { notify } from 'common/Notification'
 import { asWallet } from 'common/Wallets'
+import type { StakePoolMetadata } from 'helpers/mapping'
 
 import { useStakePoolData } from '../hooks/useStakePoolData'
 import { useEnvironmentCtx } from '../providers/EnvironmentProvider'
@@ -38,13 +38,13 @@ export const useHandlePoolConfig = () => {
       const configEntryId = findConfigEntryId(prefixBuffer, keyBuffer)
       const reverseConfigEntryId = findConfigEntryId(
         prefixBuffer,
-        reverseKeyBuffer
+        reverseKeyBuffer,
       )
       const checkConfigEntry = await tryNull(
-        getConfigEntry(connection, prefixBuffer, keyBuffer)
+        getConfigEntry(connection, prefixBuffer, keyBuffer),
       )
       const checkConfigReverseEntry = await tryNull(
-        getConfigEntry(connection, prefixBuffer, reverseKeyBuffer)
+        getConfigEntry(connection, prefixBuffer, reverseKeyBuffer),
       )
 
       // reorder
@@ -55,7 +55,7 @@ export const useHandlePoolConfig = () => {
       })
       const configChunks = chunkArray(
         configString.split(''),
-        CONFIG_VALUE_LIMIT
+        CONFIG_VALUE_LIMIT,
       ).map((chunk) => chunk.join(''))
 
       const txids: string[] = []
@@ -194,7 +194,7 @@ export const useHandlePoolConfig = () => {
       for (const signedTx of signedTransactions) {
         const txid = await sendAndConfirmRawTransaction(
           connection,
-          signedTx.serialize()
+          signedTx.serialize(),
         )
         txids.push(txid)
       }
@@ -225,6 +225,6 @@ export const useHandlePoolConfig = () => {
           })
         }
       },
-    }
+    },
   )
 }

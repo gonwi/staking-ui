@@ -1,8 +1,8 @@
 import { executeTransactionSequence, logError } from '@cardinal/common'
-import { stake as stakeV2 } from '@l1t/rewards-center'
 import { stakeAll } from '@cardinal/staking'
 import { ReceiptType } from '@cardinal/staking/dist/cjs/programs/stakePool'
 import { BN } from '@coral-xyz/anchor'
+import { stake as stakeV2 } from '@l1t/rewards-center'
 import { useWallet } from '@solana/wallet-adapter-react'
 import type { Signer, Transaction } from '@solana/web3.js'
 import { PublicKey } from '@solana/web3.js'
@@ -49,9 +49,9 @@ const stakeInfoFromTokenData = (tokenData: AllowedTokenData) => {
         tokenData.tokenAccount.parsed.tokenAmount.amount > 1
           ? parseMintNaturalAmountFromDecimal(
               tokenData?.amountToStake,
-              tokenData.tokenAccount.parsed.tokenAmount.decimals
+              tokenData.tokenAccount.parsed.tokenAmount.decimals,
             ).toString()
-          : 1
+          : 1,
       )
     : undefined
   return {
@@ -100,7 +100,7 @@ export const useHandleStake = (callback?: () => void) => {
               connection,
               wallet,
               stakePoolData.parsed.identifier,
-              stakeInfos
+              stakeInfos,
             )
           ).map((tx) => ({ tx })),
         ]
@@ -130,6 +130,6 @@ export const useHandleStake = (callback?: () => void) => {
       onError: (e) => {
         notify({ message: 'Failed to stake', description: `${e}` })
       },
-    }
+    },
   )
 }

@@ -2,8 +2,8 @@ import {
   executeTransaction,
   withFindOrInitAssociatedTokenAccount,
 } from '@cardinal/common'
-import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { withCloseRewardDistributor } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/transaction'
+import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { Transaction } from '@solana/web3.js'
@@ -35,7 +35,7 @@ export const useHandleRewardDistributorRemove = () => {
         rewardDistributor.data.parsed.rewardMint,
         rewardDistributor.data.pubkey,
         wallet.publicKey,
-        true
+        true,
       )
       const authorityAta = await withFindOrInitAssociatedTokenAccount(
         transaction,
@@ -43,7 +43,7 @@ export const useHandleRewardDistributorRemove = () => {
         rewardDistributor.data.parsed.rewardMint,
         wallet.publicKey,
         wallet.publicKey,
-        true
+        true,
       )
       if (isStakePoolV2(stakePool.data.parsed)) {
         const program = rewardsCenterProgram(connection, wallet)
@@ -83,6 +83,6 @@ export const useHandleRewardDistributorRemove = () => {
           description: `${e}`,
         })
       },
-    }
+    },
   )
 }

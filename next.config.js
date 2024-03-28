@@ -10,23 +10,26 @@ const nextConfig = {
     BASE_CLUSTER: process.env.BASE_CLUSTER,
     BYPASS_REGION_CHECK: process.env.BYPASS_REGION_CHECK,
   },
-  sentry: {
-    hideSourceMaps: true,
+  images: {
+    domains: ['i.imgur.com'],
   },
 }
 
 module.exports =
   process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
     ? withSentryConfig(nextConfig, {
-        // Additional config options for the Sentry Webpack plugin. Keep in mind that
-        // the following options are set automatically, and overriding them is not
-        // recommended:
-        //   release, url, org, project, authToken, configFile, stripPrefix,
-        //   urlPrefix, include, ignore
-
+        // Additional config options for the Sentry Webpack plugin (from old config)
         silent: true, // Suppresses all logs
         dryRun: process.env.VERCEL_ENV !== 'production',
-        // For all available options, see:
-        // https://github.com/getsentry/sentry-webpack-plugin#options.
+
+        // Sentry-specific options (from auto-generated config)
+        org: 'brainrex',
+        project: 'javascript-nextjs',
+        widenClientFileUpload: true,
+        transpileClientSDK: true,
+        tunnelRoute: '/monitoring',
+        hideSourceMaps: true,
+        disableLogger: true,
+        automaticVercelMonitors: true,
       })
     : nextConfig

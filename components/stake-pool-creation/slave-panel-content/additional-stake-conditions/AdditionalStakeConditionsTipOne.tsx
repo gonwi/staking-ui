@@ -17,6 +17,7 @@ export const AdditionalStakeConditionsTipOne = () => {
           height={250}
           width={600}
           objectFit="contain"
+          alt="Tip one a"
         />
       </div>
       <div className="flex max-w-2xl flex-col items-center px-16">
@@ -30,6 +31,7 @@ export const AdditionalStakeConditionsTipOne = () => {
           height={250}
           width={600}
           objectFit="contain"
+          alt="Tip One B"
         />
       </div>
       <BodyCopy className="flex items-center pt-4">

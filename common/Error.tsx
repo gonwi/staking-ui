@@ -1,5 +1,6 @@
 import { FooterSlim } from 'common/FooterSlim'
 import { HeaderSlim } from 'common/HeaderSlim'
+import Link from 'next/link'
 import { BsFillQuestionSquareFill } from 'react-icons/bs'
 
 export default function Error() {
@@ -13,9 +14,9 @@ export default function Error() {
         </div>
         <div className="text-lg">
           Click{' '}
-          <a className="text-blue-500" href="/">
+          <Link className="text-blue-500" href="/">
             here
-          </a>{' '}
+          </Link>{' '}
           to return back to safety
         </div>
       </div>

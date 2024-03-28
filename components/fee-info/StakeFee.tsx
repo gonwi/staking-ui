@@ -1,5 +1,5 @@
-import { ArrowDownOnSquareIcon } from '@heroicons/react/24/solid'
 import { BN } from '@coral-xyz/anchor'
+import { ArrowDownOnSquareIcon } from '@heroicons/react/24/solid'
 import { formatAmountAsDecimal } from 'common/units'
 import { useMintDecimals } from 'hooks/useMintDecimals'
 import { useMintSymbol } from 'hooks/useMintSymbol'

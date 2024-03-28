@@ -22,7 +22,12 @@ export const ParsedAccount = ({
             cluster={environment.label}
             className="text-base text-blue-500 hover:underline"
           />
-          <Image src="/logos/solana-explorer.png" width={14} height={14} />
+          <Image
+            src="/logos/solana-explorer.png"
+            width={14}
+            height={14}
+            alt="Solana Explore Image"
+          />
         </div>
       </div>
       {Object.entries(data.parsed).map(([k, v], i) => (

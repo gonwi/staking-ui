@@ -1,12 +1,12 @@
+import { getActiveStakeEntriesForPool } from '@cardinal/staking/dist/cjs/programs/stakePool/accounts'
 import type { IdlAccountData } from '@l1t/rewards-center'
 import { rewardsCenterProgram } from '@l1t/rewards-center'
-import { getActiveStakeEntriesForPool } from '@cardinal/staking/dist/cjs/programs/stakePool/accounts'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { PublicKey } from '@solana/web3.js'
 import { useMutation } from '@tanstack/react-query'
-import { stakeEntryDataToV2 } from 'helpers/fetchStakeEntry'
 import { notify } from 'common/Notification'
 import { asWallet } from 'common/Wallets'
+import { stakeEntryDataToV2 } from 'helpers/fetchStakeEntry'
 
 import { isStakePoolV2, useStakePoolData } from '../hooks/useStakePoolData'
 import { useEnvironmentCtx } from '../providers/EnvironmentProvider'
@@ -37,7 +37,7 @@ export const useHandlePoolSnapshot = () => {
           .filter(
             (entry) =>
               entry.account.lastStaker.toString() !==
-              PublicKey.default.toString()
+              PublicKey.default.toString(),
           )
           .map((e) => {
             return { pubkey: e.publicKey, parsed: e.account }
@@ -66,6 +66,6 @@ export const useHandlePoolSnapshot = () => {
           description: `${e}`,
         })
       },
-    }
+    },
   )
 }

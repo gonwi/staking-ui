@@ -3,9 +3,9 @@ import {
   findAta,
   withFindOrInitAssociatedTokenAccount,
 } from '@cardinal/common'
-import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { withReclaimFunds } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/transaction'
 import { BN } from '@coral-xyz/anchor'
+import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { Transaction } from '@solana/web3.js'
@@ -38,7 +38,7 @@ export const useHandleReclaimFunds = () => {
         const rewardDistributorTokenAccount = await findAta(
           rewardDistributor.data.parsed.rewardMint,
           rewardDistributor.data.pubkey,
-          true
+          true,
         )
         const authorityTokenAccount =
           await withFindOrInitAssociatedTokenAccount(
@@ -47,7 +47,7 @@ export const useHandleReclaimFunds = () => {
             rewardDistributor.data.parsed.rewardMint,
             wallet.publicKey,
             wallet.publicKey,
-            true
+            true,
           )
         const program = rewardsCenterProgram(connection, wallet)
         const ix = await program.methods
@@ -83,6 +83,6 @@ export const useHandleReclaimFunds = () => {
           description: `${e}`,
         })
       },
-    }
+    },
   )
 }

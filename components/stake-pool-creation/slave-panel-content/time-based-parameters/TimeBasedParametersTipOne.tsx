@@ -8,6 +8,7 @@ export const TimeBasedParametersTipOne = () => {
         objectFit="contain"
         width={610}
         height={490}
+        alt="Tip one"
       />
     </>
   )

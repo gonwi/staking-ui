@@ -171,7 +171,7 @@ function StakePoolHome(props: { stakePoolMetadataName: string | null }) {
           color:
             stakePoolMetadata?.colors?.fontColor ??
             contrastColorMode(
-              stakePoolMetadata?.colors?.primary || '#000000'
+              stakePoolMetadata?.colors?.primary || '#000000',
             )[0],
         }}
       >

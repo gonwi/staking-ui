@@ -64,7 +64,7 @@ export const SuccessPanel = ({ stakePoolId }: { stakePoolId?: PublicKey }) => {
               className="mx-auto mt-6"
               onClick={() =>
                 router.push(
-                  withCluster(stakePoolId?.toString() || '', environment.label)
+                  withCluster(stakePoolId?.toString() || '', environment.label),
                 )
               }
             >
@@ -79,7 +79,7 @@ export const SuccessPanel = ({ stakePoolId }: { stakePoolId?: PublicKey }) => {
             layout="responsive"
             objectFit="contain"
             height={60}
-            width={'100%'}
+            width={'100'}
           />
         </div>
       </div>

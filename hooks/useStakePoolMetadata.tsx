@@ -7,28 +7,27 @@ import type { Connection } from '@solana/web3.js'
 import { useQuery } from '@tanstack/react-query'
 import type { StakePoolMetadata } from 'helpers/mapping'
 import { stakePoolsWithHostnames } from 'helpers/mapping'
-import { useRouter } from 'next/router'
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
 
 export const useStakePoolMetadata = (hostname?: string) => {
-  const { connection } = useEnvironmentCtx()
+  const { connection } = useEnvironmentCtx();
+  const stakePoolId = '6wZvyohHMxhrsSaBaceVDrXpKdKFXEfLtXmMpMspt7GT';
 
-  const stakePoolId = '6wZvyohHMxhrsSaBaceVDrXpKdKFXEfLtXmMpMspt7GT'
-
-  return useQuery(
-    ['useStakePoolMetadata', stakePoolId?.toString()],
-    async () => {
+  return useQuery({
+    queryKey: ['useStakePoolMetadata', stakePoolId?.toString()],
+    queryFn: async () => {
       const hostnameConfigFound = stakePoolsWithHostnames.find((config) =>
         hostname?.includes(config.hostname)
-      )
-      if (!hostnameConfigFound && !stakePoolId) return null
+      );
+      if (!hostnameConfigFound && !stakePoolId) return null;
+
       return stakePoolConfig(
         connection,
         hostnameConfigFound?.stakePoolAddress ?? stakePoolId!.toString()
-      )
+      );
     }
-  )
-}
+  });
+};
 
 export const stakePoolConfig = async (
   connection: Connection,

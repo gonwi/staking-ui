@@ -1,7 +1,7 @@
 import { executeTransaction } from '@cardinal/common'
-import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { rewardDistributorProgram } from '@cardinal/staking/dist/cjs/programs/rewardDistributor'
 import { BN } from '@coral-xyz/anchor'
+import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { Transaction } from '@solana/web3.js'
 import { useMutation } from '@tanstack/react-query'
@@ -116,6 +116,6 @@ export const useHandleRewardDistributorUpdate = () => {
           description: handleError(e, `${e}`),
         })
       },
-    }
+    },
   )
 }

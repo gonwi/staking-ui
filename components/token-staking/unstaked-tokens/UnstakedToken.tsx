@@ -1,11 +1,11 @@
 import type { ReceiptType } from '@cardinal/staking/dist/cjs/programs/stakePool'
 import { BN } from '@coral-xyz/anchor'
 import type { UseMutationResult } from '@tanstack/react-query'
-import { defaultSecondaryColor } from 'helpers/mapping'
 import { LoadingSpinner } from 'common/LoadingSpinner'
 import { QuickActions } from 'common/QuickActions'
 import { getNameFromTokenData } from 'common/tokenDataUtils'
 import { formatAmountAsDecimal } from 'common/units'
+import { defaultSecondaryColor } from 'helpers/mapping'
 import type { AllowedTokenData } from 'hooks/useAllowedTokenDatas'
 import { useMintJson } from 'hooks/useMintJson'
 import { useStakePoolMetadataCtx } from 'providers/StakePoolMetadataProvider'
@@ -44,7 +44,13 @@ export const UnstakedToken = ({
       key={tk.tokenAccount?.pubkey.toString()}
       className="relative mx-auto min-w-full"
     >
-      <TokenWrapper token={tk} selected={selected} select={select}>
+      <TokenWrapper
+        token={tk}
+        selected={selected}
+        select={(tokenData, amount) =>
+          select(tokenData as AllowedTokenData, amount)
+        }
+      >
         {loading && (
           <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-xl bg-black bg-opacity-80 align-middle text-white">
             <div className="my-auto flex">
@@ -97,7 +103,7 @@ export const UnstakedToken = ({
                       {formatAmountAsDecimal(
                         tk.tokenAccount.parsed.tokenAmount.decimals,
                         new BN(tk.tokenAccount?.parsed.tokenAmount.amount),
-                        tk.tokenAccount.parsed.tokenAmount.decimals
+                        tk.tokenAccount.parsed.tokenAmount.decimals,
                       )}
                     </span>
                   </div>

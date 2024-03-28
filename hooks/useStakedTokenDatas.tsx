@@ -7,8 +7,8 @@ import * as metaplex from '@metaplex-foundation/mpl-token-metadata'
 import { useWallet } from '@solana/wallet-adapter-react'
 import type { Connection, PublicKey } from '@solana/web3.js'
 import { useQuery } from '@tanstack/react-query'
-import { fetchStakeEntriesForUser } from 'helpers/fetchStakeEntry'
 import { asWallet } from 'common/Wallets'
+import { fetchStakeEntriesForUser } from 'helpers/fetchStakeEntry'
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
 
 import * as useAllowedTokenDatas from './useAllowedTokenDatas'
@@ -30,20 +30,21 @@ export async function getStakeEntryDatas(
   connection: Connection,
   wallet: Parameters<typeof fetchStakeEntriesForUser>[1],
   stakePoolData: Pick<IdlAccountData<'stakePool'>, 'pubkey' | 'parsed'>,
-  userId: PublicKey
+  userId: PublicKey,
 ): Promise<StakeEntryTokenData[]> {
   const stakeEntries = (
     await fetchStakeEntriesForUser(connection, wallet, stakePoolData, userId)
   ).filter(
-    (entry) => entry.parsed?.pool.toString() === stakePoolData.pubkey.toString()
+    (entry) =>
+      entry.parsed?.pool.toString() === stakePoolData.pubkey.toString(),
   )
 
   const metaplexIds = stakeEntries.map((stakeEntry) =>
-    findMintMetadataId(stakeEntry.parsed!.stakeMint)
+    findMintMetadataId(stakeEntry.parsed!.stakeMint),
   )
   const metaplexAccountInfos = await getBatchedMultipleAccounts(
     connection,
-    metaplexIds
+    metaplexIds,
   )
   const metaplexData = metaplexAccountInfos.reduce(
     (acc, accountInfo, i) => {
@@ -63,7 +64,7 @@ export async function getStakeEntryDatas(
         pubkey: PublicKey
         data: metaplex.Metadata
       }
-    }
+    },
   )
 
   return stakeEntries.map((stakeEntry) => ({
@@ -102,9 +103,9 @@ export const useStakedTokenDatas = () => {
             secondaryConnection,
             asWallet(wallet),
             stakePoolData,
-            walletId
-          )
-        )
+            walletId,
+          ),
+        ),
       )
       const tokenDatas = stakeEntryDataGroups.flat()
       const hydratedTokenDatas = tokenDatas.reduce((acc, tokenData) => {
@@ -112,7 +113,7 @@ export const useStakedTokenDatas = () => {
         try {
           tokenListData = tokenList.data?.find(
             (t) =>
-              t.address === tokenData.stakeEntry?.parsed?.stakeMint.toString()
+              t.address === tokenData.stakeEntry?.parsed?.stakeMint.toString(),
           )
         } catch (e) {}
 
@@ -134,6 +135,6 @@ export const useStakedTokenDatas = () => {
     {
       enabled:
         tokenList.isFetched && !!stakePoolData?.pubkey && walletIds.length > 0,
-    }
+    },
   )
 }

@@ -1,6 +1,7 @@
 import { contrastify } from '@cardinal/common'
 import { LogoTitled } from 'assets/LogoTitled'
-import { darken, getLuminance, lighten } from 'polished'
+import Link from 'next/link'
+import { darken, lighten } from 'polished'
 import { FaDiscord, FaGithub, FaMedium, FaTwitter } from 'react-icons/fa'
 
 export const SOCIALS = {
@@ -36,12 +37,12 @@ export const Footer = ({
             >
               App
             </div>
-            <a href="/" className="text-gray-400">
+            <Link href="/" className="text-gray-400">
               Pools
-            </a>
-            <a href="/admin" className="text-gray-400">
+            </Link>
+            <Link href="/admin" className="text-gray-400">
               Admin
-            </a>
+            </Link>
           </span>
           <span className="flex flex-col items-start gap-1">
             <div
@@ -91,7 +92,7 @@ export const Footer = ({
         style={{ borderColor: lighten(0.2, bgColor) }}
       >
         <div className="flex items-center justify-center gap-2 text-gray-400">
-          Powered by Cardinal
+          Powered by Open Cardinal
         </div>
         <div className="flex gap-4 text-gray-200">
           <a

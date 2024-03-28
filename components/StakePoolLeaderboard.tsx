@@ -28,8 +28,8 @@ export const StakePoolLeaderboard = () => {
         totalStakeSeconds: stakeEntry.parsed.totalStakeSeconds
           .add(
             new BN(UTCNow).sub(
-              stakeEntry.parsed.lastUpdatedAt ?? stakeEntry.parsed.lastStakedAt
-            )
+              stakeEntry.parsed.lastUpdatedAt ?? stakeEntry.parsed.lastStakedAt,
+            ),
           )
           .toNumber(),
       }
@@ -53,18 +53,18 @@ export const StakePoolLeaderboard = () => {
         totalStakeAmount: number
         totalStakeSeconds: number
       }
-    }
+    },
   )
 
   const [pageNum, setPageNum] = useState<[number, number]>(DEFAULT_PAGE)
 
+  const walletStrings = Object.values(analysisPerWallet)
+    ?.map((r) => r?.wallet.toString())
+    .join(',')
+
   useEffect(() => {
     setPageNum(DEFAULT_PAGE)
-  }, [
-    Object.values(analysisPerWallet)
-      ?.map((r) => r?.wallet.toString())
-      .join(','),
-  ])
+  }, [walletStrings])
 
   useEffect(() => {
     const onScroll = (event: Event) => {

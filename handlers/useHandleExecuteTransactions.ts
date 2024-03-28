@@ -32,9 +32,8 @@ export const useHandleExecuteTransactions = () => {
         tx.recentBlockhash = recentBlockhash
         return tx
       })
-      const signedTransactions = await wallet.signAllTransactions(
-        unsignedTransactions
-      )
+      const signedTransactions =
+        await wallet.signAllTransactions(unsignedTransactions)
 
       const txChunks = chunkArray(signedTransactions, BATCH_SIZE)
       const failedTxIxs: number[] = []
@@ -47,7 +46,7 @@ export const useHandleExecuteTransactions = () => {
             try {
               const txid = await sendAndConfirmRawTransaction(
                 connection,
-                tx.serialize()
+                tx.serialize(),
               )
               successfulTxIxs.push(txix)
               return txid
@@ -56,7 +55,7 @@ export const useHandleExecuteTransactions = () => {
               console.log('e', e)
               return null
             }
-          })
+          }),
         )
         allTxids.push(...txids)
       }
@@ -70,6 +69,6 @@ export const useHandleExecuteTransactions = () => {
         txid: '',
       })
       return allTxids
-    }
+    },
   )
 }

@@ -4,6 +4,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { GlyphWallet } from 'assets/GlyphWallet'
 import { useStakePoolId } from 'hooks/useStakePoolId'
+import Image from 'next/image'
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
 import { useStakePoolMetadataCtx } from 'providers/StakePoolMetadataProvider'
 
@@ -43,7 +44,7 @@ export const Header = () => {
           >
             {stakePoolMetadata?.secondaryImageUrl && (
               <div className="ml-2 flex flex-row">
-                <img
+                <Image
                   className="flex h-[35px] flex-col"
                   src={stakePoolMetadata?.secondaryImageUrl}
                   alt={stakePoolMetadata?.secondaryImageUrl}
@@ -93,7 +94,7 @@ export const Header = () => {
               dark={
                 tryColor(stakePoolMetadata?.colors?.primary)
                   ? getLuminance(
-                      tryColor(stakePoolMetadata?.colors?.primary)!
+                      tryColor(stakePoolMetadata?.colors?.primary)!,
                     ) < 0.5
                   : true
               }

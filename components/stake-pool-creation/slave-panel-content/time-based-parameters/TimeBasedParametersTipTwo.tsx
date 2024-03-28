@@ -1,5 +1,6 @@
-import { BodyCopy } from '@/components/UI/typography/BodyCopy'
 import Image from 'next/image'
+
+import { BodyCopy } from '@/components/UI/typography/BodyCopy'
 
 export const TimeBasedParametersTipTwo = () => {
   return (
@@ -9,6 +10,7 @@ export const TimeBasedParametersTipTwo = () => {
         objectFit="contain"
         width={500}
         height={400}
+        alt="tip two"
       />
       <BodyCopy className="mt-8 max-w-lg">
         The cooldown period is the timeframe before the newly unstaked tokens

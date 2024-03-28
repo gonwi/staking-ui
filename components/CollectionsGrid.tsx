@@ -10,6 +10,7 @@ import {
   useAllStakePools,
 } from 'hooks/useAllStakePools'
 import { isStakePoolV2 } from 'hooks/useStakePoolData'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { transparentize } from 'polished'
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
@@ -54,12 +55,12 @@ export const CollectionsGrid = ({ configs }: { configs?: StakePool[] }) => {
                   !!trySeq(() =>
                     transparentize(
                       0.8,
-                      config.stakePoolMetadata?.colors?.primary ?? ''
-                    )
+                      config.stakePoolMetadata?.colors?.primary ?? '',
+                    ),
                   ) &&
                   transparentize(
                     0.8,
-                    config.stakePoolMetadata?.colors?.primary
+                    config.stakePoolMetadata?.colors?.primary,
                   )};
                 }
               `}
@@ -73,7 +74,7 @@ export const CollectionsGrid = ({ configs }: { configs?: StakePool[] }) => {
                       environment.label !== 'mainnet-beta'
                         ? `?cluster=${environment.label}`
                         : ''
-                    }`
+                    }`,
                 )
               }
               hero={
@@ -81,7 +82,7 @@ export const CollectionsGrid = ({ configs }: { configs?: StakePool[] }) => {
                   className={`flex h-full w-full items-center justify-center`}
                 >
                   {config.stakePoolMetadata?.imageUrl ? (
-                    <img
+                    <Image
                       className={`max-h-full rounded-xl`}
                       src={config.stakePoolMetadata?.imageUrl}
                       alt={`${
@@ -92,7 +93,7 @@ export const CollectionsGrid = ({ configs }: { configs?: StakePool[] }) => {
                   ) : (
                     <div className="flex h-full flex-grow items-center justify-center">
                       <div className="flex h-[150px] w-[150px] items-center justify-center rounded-full text-5xl">
-                        <img
+                        <Image
                           className={`max-h-28 rounded-xl fill-red-600`}
                           src={'/cardinal-crosshair.svg'}
                           alt={`${config.stakePoolData.pubkey.toString()}`}

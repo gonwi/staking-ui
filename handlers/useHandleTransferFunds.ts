@@ -4,9 +4,9 @@ import {
   withWrapSol,
 } from '@cardinal/common'
 import {
+  NATIVE_MINT,
   createTransferCheckedInstruction,
   getAssociatedTokenAddressSync,
-  NATIVE_MINT,
 } from '@solana/spl-token'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { Transaction } from '@solana/web3.js'
@@ -43,7 +43,7 @@ export const useHandleTransferFunds = () => {
       const ownerAtaId = getAssociatedTokenAddressSync(
         rewardDistributor.data.parsed?.rewardMint,
         wallet.publicKey,
-        true
+        true,
       )
       const poolAtaId = await withFindOrInitAssociatedTokenAccount(
         transaction,
@@ -51,7 +51,7 @@ export const useHandleTransferFunds = () => {
         rewardDistributor.data.parsed?.rewardMint,
         rewardDistributor.data.pubkey,
         wallet.publicKey,
-        true
+        true,
       )
 
       if (
@@ -68,8 +68,8 @@ export const useHandleTransferFunds = () => {
           poolAtaId,
           wallet.publicKey,
           transferAmount,
-          rewardMintInfo.data.mintInfo.decimals
-        )
+          rewardMintInfo.data.mintInfo.decimals,
+        ),
       )
 
       return executeTransaction(connection, transaction, wallet, {})
@@ -88,6 +88,6 @@ export const useHandleTransferFunds = () => {
           description: `${e}`,
         })
       },
-    }
+    },
   )
 }

@@ -1,6 +1,6 @@
 import { executeTransactionSequence, logError, tryNull } from '@cardinal/common'
-import { claimRewards as claimRewardsV2 } from '@l1t/rewards-center'
 import { claimRewardsAll } from '@cardinal/staking'
+import { claimRewards as claimRewardsV2 } from '@l1t/rewards-center'
 import {
   createAssociatedTokenAccountIdempotentInstruction,
   getAccount,
@@ -50,16 +50,16 @@ export const useHandleClaimRewards = () => {
           tokenDatas.map((token) => ({
             mintId: token.stakeEntry!.parsed.stakeMint,
           })),
-          rewardDistributorData.data ? [rewardDistributorData.data.pubkey] : []
+          rewardDistributorData.data ? [rewardDistributorData.data.pubkey] : [],
         )
 
         // create ata if not exists in first tx and execute first
         const userRewardTokenAccountId = getAssociatedTokenAddressSync(
           rewardDistributorData.data.parsed.rewardMint,
-          wallet.publicKey
+          wallet.publicKey,
         )
         const rewardTokenAccount = await tryNull(
-          getAccount(connection, userRewardTokenAccountId)
+          getAccount(connection, userRewardTokenAccountId),
         )
         txs =
           rewardDistributorData.data?.parsed &&
@@ -73,7 +73,7 @@ export const useHandleClaimRewards = () => {
                         wallet.publicKey,
                         userRewardTokenAccountId,
                         wallet.publicKey,
-                        rewardDistributorData.data?.parsed.rewardMint
+                        rewardDistributorData.data?.parsed.rewardMint,
                       ),
                       ...tx.instructions,
                     ]
@@ -116,6 +116,6 @@ export const useHandleClaimRewards = () => {
       onError: (e) => {
         notify({ message: 'Failed to claim rewards', description: `${e}` })
       },
-    }
+    },
   )
 }

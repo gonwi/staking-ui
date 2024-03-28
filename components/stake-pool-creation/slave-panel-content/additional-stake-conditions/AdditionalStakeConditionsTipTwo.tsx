@@ -12,6 +12,7 @@ export const AdditionalStakeConditionsTipTwo = () => {
           height={350}
           width={300}
           objectFit="contain"
+          alt="Tip Two"
         />
       </div>
       <BodyCopy className="flex items-center pt-8">

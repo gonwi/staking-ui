@@ -1,21 +1,22 @@
 import { DisplayAddress } from '@cardinal/namespaces-components'
 import { useWallet } from '@solana/wallet-adapter-react'
 import type { UseMutationResult } from '@tanstack/react-query'
-import { defaultSecondaryColor } from 'helpers/mapping'
 import { LoadingSpinner } from 'common/LoadingSpinner'
 import { QuickActions } from 'common/QuickActions'
 import { getNameFromTokenData } from 'common/tokenDataUtils'
+import { defaultSecondaryColor } from 'helpers/mapping'
 import { useMintJson } from 'hooks/useMintJson'
-import type { StakeEntryTokenData } from 'hooks/useStakedTokenDatas'
+import type { StakeEntryTokenData } from 'hooks/useStakedTokenDatas' // Adjust import if TokenDataType is defined elsewhere
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
 import { useStakePoolMetadataCtx } from 'providers/StakePoolMetadataProvider'
 
-import { TokenImage } from '@/components/token-staking/token/TokenImage'
-import { TokenImageWrapper } from '@/components/token-staking/token/TokenImageWrapper'
-import { TokenWrapper } from '@/components/token-staking/token/TokenWrapper'
 import { TokenStatBoostBadge } from '@/components/token-staking/token-stats/UI/TokenStatBoostBadge'
 import { TokenStatCooldownBadge } from '@/components/token-staking/token-stats/UI/TokenStatCooldownBadge'
 import { TokenStatNextRewardBadge } from '@/components/token-staking/token-stats/UI/TokenStatNextRewardBadge'
+import { TokenImage } from '@/components/token-staking/token/TokenImage'
+import { TokenImageWrapper } from '@/components/token-staking/token/TokenImageWrapper'
+import type { TokenDataType } from '@/components/token-staking/token/TokenWrapper'
+import { TokenWrapper } from '@/components/token-staking/token/TokenWrapper'
 
 import { StakedStats } from './StakedStats'
 
@@ -31,7 +32,7 @@ export const StakedToken = ({
   selected: boolean
   loadingUnstake: boolean
   loadingClaim: boolean
-  select: (tokenData: StakeEntryTokenData, amount?: string) => void
+  select: (tokenData: TokenDataType, amount?: string) => void // Adjusted to TokenDataType
   handleUnstake: UseMutationResult<
     [(string | null)[][], number],
     unknown,
@@ -44,9 +45,20 @@ export const StakedToken = ({
   const { data: stakePoolMetadata } = useStakePoolMetadataCtx()
   const mintJson = useMintJson(tk)
 
+  // Function adjusted for TokenDataType compatibility
+  const safeSelect = (tokenData: TokenDataType, amount?: string) => {
+    if ('stakeEntry' in tokenData) {
+      // If the tokenData has a stakeEntry, it's a StakeEntryTokenData
+      select(tokenData, amount)
+    } else {
+      // Log or handle the case where tokenData is not StakeEntryTokenData, as needed
+      console.error('Attempted to select a token without a stakeEntry')
+    }
+  }
+
   return (
     <div key={tk?.stakeEntry?.pubkey.toBase58()}>
-      <TokenWrapper token={tk} selected={selected} select={select}>
+      <TokenWrapper token={tk} selected={selected} select={safeSelect}>
         {(loadingClaim || loadingUnstake) && (
           <div>
             <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-lg bg-black bg-opacity-80 align-middle text-white">
@@ -62,7 +74,7 @@ export const StakedToken = ({
         {tk.stakeEntry?.parsed?.lastStaker.toString() !==
           wallet.publicKey?.toString() && (
           <div>
-            <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-xl bg-black bg-opacity-80  align-middle text-white">
+            <div className="absolute top-0 left-0 z-10 flex h-full w-full justify-center rounded-xl bg-black bg-opacity-80 align-middle text-white">
               <div className="mx-auto flex flex-col items-center justify-center">
                 <div>Owned by</div>
                 <DisplayAddress
@@ -92,15 +104,7 @@ export const StakedToken = ({
         </TokenImageWrapper>
 
         <div
-          className={`flex-col rounded-b-xl p-2 ${
-            stakePoolMetadata?.colors?.fontColor
-              ? `text-[${stakePoolMetadata?.colors?.fontColor}]`
-              : 'text-gray-200'
-          } ${
-            stakePoolMetadata?.colors?.backgroundSecondary
-              ? `bg-[${stakePoolMetadata?.colors?.backgroundSecondary}]`
-              : 'bg-white bg-opacity-10'
-          }`}
+          className={`flex-col rounded-b-xl p-2 ${stakePoolMetadata?.colors?.fontColor ? `text-[${stakePoolMetadata?.colors?.fontColor}]` : 'text-gray-200'} ${stakePoolMetadata?.colors?.backgroundSecondary ? `bg-[${stakePoolMetadata?.colors?.backgroundSecondary}]` : 'bg-white bg-opacity-10'}`}
           style={{
             background: stakePoolMetadata?.colors?.backgroundSecondary,
           }}

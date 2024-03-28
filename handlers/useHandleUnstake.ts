@@ -1,6 +1,6 @@
 import { executeTransactionSequence, logError, tryNull } from '@cardinal/common'
-import { unstake as unstakeV2 } from '@l1t/rewards-center'
 import { unstakeAll } from '@cardinal/staking'
+import { unstake as unstakeV2 } from '@l1t/rewards-center'
 import type { Account } from '@solana/spl-token'
 import {
   createAssociatedTokenAccountIdempotentInstruction,
@@ -60,7 +60,7 @@ export const useHandleUnstake = (callback?: () => void) => {
           })),
           rewardDistributorData.data
             ? [rewardDistributorData.data?.pubkey]
-            : undefined
+            : undefined,
         )
 
         // create ata if not exists in first tx and execute first
@@ -69,10 +69,10 @@ export const useHandleUnstake = (callback?: () => void) => {
         if (rewardDistributorData.data?.parsed) {
           userRewardTokenAccountId = getAssociatedTokenAddressSync(
             rewardDistributorData.data.parsed.rewardMint,
-            wallet.publicKey
+            wallet.publicKey,
           )
           rewardTokenAccount = await tryNull(
-            getAccount(connection, userRewardTokenAccountId)
+            getAccount(connection, userRewardTokenAccountId),
           )
         }
         txs =
@@ -87,7 +87,7 @@ export const useHandleUnstake = (callback?: () => void) => {
                         wallet.publicKey,
                         userRewardTokenAccountId,
                         wallet.publicKey,
-                        rewardDistributorData.data?.parsed.rewardMint
+                        rewardDistributorData.data?.parsed.rewardMint,
                       ),
                       ...tx.instructions,
                     ]
@@ -141,6 +141,6 @@ export const useHandleUnstake = (callback?: () => void) => {
       onError: (e) => {
         notify({ message: 'Failed to unstake', description: `${e}` })
       },
-    }
+    },
   )
 }

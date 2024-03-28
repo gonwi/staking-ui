@@ -1,5 +1,3 @@
-import type { CardinalRewardsCenter, IdlAccountData } from '@l1t/rewards-center'
-import { REWARDS_CENTER_ADDRESS, REWARDS_CENTER_IDL } from '@l1t/rewards-center'
 import type { StakePoolData } from '@cardinal/staking/dist/cjs/programs/stakePool'
 import {
   STAKE_POOL_ADDRESS,
@@ -11,6 +9,8 @@ import type {
   IdlTypes,
   TypeDef,
 } from '@coral-xyz/anchor/dist/cjs/program/namespace/types'
+import type { CardinalRewardsCenter, IdlAccountData } from '@l1t/rewards-center'
+import { REWARDS_CENTER_ADDRESS, REWARDS_CENTER_IDL } from '@l1t/rewards-center'
 import { PublicKey } from '@solana/web3.js'
 import { useQuery } from '@tanstack/react-query'
 import { useStakePoolId } from 'hooks/useStakePoolId'

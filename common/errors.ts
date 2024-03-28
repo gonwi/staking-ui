@@ -1,9 +1,4 @@
 import {
-  CONFIGS_ADDRESS,
-  CONFIGS_IDL,
-} from '@l1t/configs/dist/cjs/programs/constants'
-import { REWARDS_CENTER_ADDRESS, REWARDS_CENTER_IDL } from '@l1t/rewards-center'
-import {
   REWARD_DISTRIBUTOR_ADDRESS,
   REWARD_DISTRIBUTOR_IDL,
 } from '@cardinal/staking/dist/cjs/programs/rewardDistributor'
@@ -12,6 +7,11 @@ import {
   STAKE_POOL_IDL,
 } from '@cardinal/staking/dist/cjs/programs/stakePool'
 import type { Idl } from '@coral-xyz/anchor'
+import {
+  CONFIGS_ADDRESS,
+  CONFIGS_IDL,
+} from '@l1t/configs/dist/cjs/programs/constants'
+import { REWARDS_CENTER_ADDRESS, REWARDS_CENTER_IDL } from '@l1t/rewards-center'
 import type { PublicKey, SendTransactionError } from '@solana/web3.js'
 
 type ErrorCode = {
@@ -284,7 +284,7 @@ export const handleError = (
       { programId: CONFIGS_ADDRESS, idl: CONFIGS_IDL },
     ],
     additionalErrors: NATIVE_ERRORS,
-  }
+  },
 ): string => {
   const programIdls = options.programIdls ?? []
   const additionalErrors = options.additionalErrors ?? []
@@ -301,7 +301,7 @@ export const handleError = (
       ...programIdls.map(({ idl, programId }) => ({
         // match program on any log that includes programId and 'failed'
         programMatch: logs?.some(
-          (l) => l.includes(programId.toString()) && l.includes('failed')
+          (l) => l.includes(programId.toString()) && l.includes('failed'),
         ),
         // match error with decimal
         errorMatch: idl.errors?.find((err) => err.code === dec)?.msg,
@@ -318,14 +318,14 @@ export const handleError = (
           (err) =>
             // message includes error
             (e as SendTransactionError).message?.includes(
-              err.code.toString()
+              err.code.toString(),
             ) ||
             // toString includes error
             (e as Error).toString().includes(err.code.toString()) ||
             // any log includes error
             (e as SendTransactionError).logs?.some((l) =>
-              l.toString().includes(err.code.toString())
-            )
+              l.toString().includes(err.code.toString()),
+            ),
         )?.msg,
       })),
       {
@@ -337,8 +337,8 @@ export const handleError = (
             (e as Error).toString().includes(err.code) ||
             // any log includes error
             (e as SendTransactionError).logs?.some((l) =>
-              l.toString().includes(err.code)
-            )
+              l.toString().includes(err.code),
+            ),
         )?.message,
       },
     ],

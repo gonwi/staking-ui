@@ -5,6 +5,7 @@ import type { StakePool } from 'hooks/useAllStakePools'
 import { useStakePoolsByAuthority } from 'hooks/useStakePoolsByAuthority'
 import { useStakePoolsMetadatas } from 'hooks/useStakePoolsMetadata'
 import { useWalletId } from 'hooks/useWalletId'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEnvironmentCtx } from 'providers/EnvironmentProvider'
 
@@ -16,7 +17,7 @@ export const AdminPools = () => {
   const { environment } = useEnvironmentCtx()
   const stakePoolsByAuthority = useStakePoolsByAuthority()
   const stakePoolsMetadata = useStakePoolsMetadatas(
-    stakePoolsByAuthority.data?.map((s) => s.pubkey)
+    stakePoolsByAuthority.data?.map((s) => s.pubkey),
   )
   const [stakePoolsWithMetadata, stakePoolsWithoutMetadata] = (
     stakePoolsByAuthority.data || []
@@ -30,7 +31,7 @@ export const AdminPools = () => {
       }
       return [acc[0], [...acc[1], { stakePoolData }]]
     },
-    [[] as StakePool[], [] as StakePool[]]
+    [[] as StakePool[], [] as StakePool[]],
   )
 
   const allPools = stakePoolsWithMetadata.concat(stakePoolsWithoutMetadata)
@@ -61,8 +62,8 @@ export const AdminPools = () => {
                       stakePool.stakePoolMetadata?.name ||
                       stakePool.stakePoolData.pubkey.toString()
                     }`,
-                    environment.label
-                  )
+                    environment.label,
+                  ),
                 )
               }}
             >
@@ -80,7 +81,7 @@ export const AdminPools = () => {
               </div>
 
               {stakePool.stakePoolMetadata?.imageUrl ? (
-                <img
+                <Image
                   className="mx-auto mt-5 h-full max-h-[100px] rounded-md"
                   src={stakePool.stakePoolMetadata.imageUrl}
                   alt={stakePool.stakePoolMetadata.name}
@@ -88,7 +89,7 @@ export const AdminPools = () => {
               ) : (
                 <div className="flex justify-center align-middle">
                   <div className="mt-5 flex h-[100px] w-[100px] items-center justify-center rounded-full text-5xl text-white text-opacity-40">
-                    <img
+                    <Image
                       className="mx-auto mt-5 h-[100px] w-[100px] rounded-md"
                       src={'/cardinal-crosshair.svg'}
                       alt={stakePool.stakePoolData.pubkey.toString()}

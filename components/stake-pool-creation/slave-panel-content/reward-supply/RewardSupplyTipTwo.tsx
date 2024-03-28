@@ -10,6 +10,7 @@ export const RewardSupplyTipTwo = () => {
           src="/images/stake-pool-creation/reward-supply/reward-supply-two.png"
           width={310}
           height={420}
+          alt="Reward supply two"
         />
       </div>
       <div className="mt-8 max-w-lg space-y-4 px-4">

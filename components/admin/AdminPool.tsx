@@ -105,14 +105,19 @@ export const AdminStakePool = () => {
             rel="noreferrer"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full border-[2px] border-gray-700 bg-gray-700 transition hover:border-orange-500">
-              <Image src="/logos/solana-explorer.png" width={12} height={12} />
+              <Image
+                src="/logos/solana-explorer.png"
+                width={12}
+                height={12}
+                alt="Solana Explorer Logo"
+              />
             </div>
           </a>
           <a
             className="transition hover:text-blue-500"
             href={withCluster(
               `/${config?.name ?? stakePoolId}`,
-              environment.label
+              environment.label,
             )}
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full border-[2px] border-gray-700 bg-gray-700 transition hover:border-orange-500">

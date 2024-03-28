@@ -1,14 +1,14 @@
 import { executeTransaction, tryPublicKey } from '@cardinal/common'
+import { createStakePool } from '@cardinal/staking'
+import { RewardDistributorKind } from '@cardinal/staking/dist/cjs/programs/rewardDistributor'
+import { withInitRewardDistributor } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/transaction'
+import { BN } from '@coral-xyz/anchor'
 import {
   DEFAULT_PAYMENT_INFO,
   findRewardDistributorId,
   findStakePoolId,
   rewardsCenterProgram,
 } from '@l1t/rewards-center'
-import { createStakePool } from '@cardinal/staking'
-import { RewardDistributorKind } from '@cardinal/staking/dist/cjs/programs/rewardDistributor'
-import { withInitRewardDistributor } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/transaction'
-import { BN } from '@coral-xyz/anchor'
 import type { Mint } from '@solana/spl-token'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js'
@@ -80,7 +80,7 @@ export const useHandleCreationForm = () => {
             minStakeSeconds: values.minStakeSeconds,
             endDate: endDateSeconds ? new BN(endDateSeconds) : undefined,
             doubleOrResetEnabled: false,
-          }
+          },
         )
         if (!!values.rewardMintAddress) {
           /////////////////// V1 Reward Distribution ///////////////////
@@ -115,7 +115,7 @@ export const useHandleCreationForm = () => {
           connection,
           transaction,
           wallet,
-          {}
+          {},
         )
         return [txid, stakePoolId]
       } else {
@@ -182,7 +182,7 @@ export const useHandleCreationForm = () => {
           connection,
           transaction,
           wallet,
-          {}
+          {},
         )
         return [txid, stakePoolId]
       }
@@ -212,6 +212,6 @@ export const useHandleCreationForm = () => {
           description: handleError(e, `${e}`),
         })
       },
-    }
+    },
   )
 }

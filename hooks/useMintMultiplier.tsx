@@ -1,13 +1,13 @@
 import { tryPublicKey } from '@cardinal/common'
+import { getRewardEntry } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/accounts'
+import { findRewardEntryId } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/pda'
+import { findStakeEntryIdFromMint } from '@cardinal/staking/dist/cjs/programs/stakePool/utils'
 import type { IdlAccountData } from '@l1t/rewards-center'
 import {
   fetchIdlAccount,
   findRewardEntryId as findRewardEntryIdV2,
   findStakeEntryId,
 } from '@l1t/rewards-center'
-import { getRewardEntry } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/accounts'
-import { findRewardEntryId } from '@cardinal/staking/dist/cjs/programs/rewardDistributor/pda'
-import { findStakeEntryIdFromMint } from '@cardinal/staking/dist/cjs/programs/stakePool/utils'
 import type { PublicKey } from '@solana/web3.js'
 import { useQuery } from '@tanstack/react-query'
 import { notify } from 'common/Notification'
@@ -45,16 +45,16 @@ export const useMintMultiplier = (mint: string) => {
           mintId,
           // TODO change for fungible
           undefined,
-          false
+          false,
         )
         const rewardEntryId = findRewardEntryIdV2(
           rewardDistributor.data.pubkey,
-          stakeEntryId
+          stakeEntryId,
         )
         rewardEntryData = await fetchIdlAccount(
           connection,
           rewardEntryId,
-          'rewardEntry'
+          'rewardEntry',
         )
       } else {
         try {
@@ -63,14 +63,14 @@ export const useMintMultiplier = (mint: string) => {
             // TODO change for fungible
             stakePoolId,
             stakePoolId,
-            mintId
+            mintId,
           )
         } catch (e) {
           throw 'Invalid mint ID or no reward entry for mint'
         }
         const rewardEntryId = findRewardEntryId(
           rewardDistributor.data.pubkey,
-          stakeEntryId
+          stakeEntryId,
         )
         rewardEntryData = await getRewardEntry(connection, rewardEntryId)
       }
@@ -80,6 +80,6 @@ export const useMintMultiplier = (mint: string) => {
         10 ** (rewardDistributor.data.parsed?.multiplierDecimals || 0)
       )
     },
-    { enabled: !!stakePoolId && mint.length > 0, retry: false }
+    { enabled: !!stakePoolId && mint.length > 0, retry: false },
   )
 }

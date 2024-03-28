@@ -1,6 +1,6 @@
 import { executeTransaction } from '@cardinal/common'
-import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { BN } from '@coral-xyz/anchor'
+import { rewardsCenterProgram } from '@l1t/rewards-center'
 import { useWallet } from '@solana/wallet-adapter-react'
 import type { PublicKey } from '@solana/web3.js'
 import { Transaction } from '@solana/web3.js'
@@ -34,7 +34,7 @@ export const useHandleMultiplierStakeSecondsDecrement = () => {
       const tx = new Transaction()
       const ix = await rewardsCenterProgram(connection, wallet)
         .methods.decrementStakeEntryMultiplierStakeSeconds(
-          new BN(multiplierStakeSeconds)
+          new BN(multiplierStakeSeconds),
         )
         .accountsStrict({
           stakeEntry: stakeEntryId,
@@ -59,6 +59,6 @@ export const useHandleMultiplierStakeSecondsDecrement = () => {
           description: `${e}`,
         })
       },
-    }
+    },
   )
 }

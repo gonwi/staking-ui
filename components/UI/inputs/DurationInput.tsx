@@ -44,17 +44,17 @@ export const DurationInput = ({
   selectorPosition,
 }: Props) => {
   const [durationAmount, setDurationAmount] = useState<number | null>(
-    defaultAmount
+    defaultAmount,
   )
   const [durationOption, setDurationOption] = useState<DurationOption>(
-    defaultOption ?? 'days'
+    defaultOption ?? 'days',
   )
 
   useEffect(() => {
     handleChange &&
       durationAmount &&
       handleChange(durationAmount * durationData[durationOption]!)
-  }, [durationOption, durationAmount])
+  }, [durationOption, durationAmount, durationData, handleChange])
 
   return (
     <div className="flex items-center">
@@ -80,7 +80,7 @@ export const DurationInput = ({
           value: durationOption,
           label: capitalizeFirstLetter(durationOption).substring(
             0,
-            durationOption.length - 1
+            durationOption.length - 1,
           ),
         }}
         options={Object.keys(DURATION_DATA).map((option) => ({
