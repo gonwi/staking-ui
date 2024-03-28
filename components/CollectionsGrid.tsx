@@ -22,7 +22,6 @@ export function trySeq<T>(fn: () => T): T | null {
     return null
   }
 }
-
 export const CollectionsGrid = ({ configs }: { configs?: StakePool[] }) => {
   const router = useRouter()
   const { environment } = useEnvironmentCtx()
