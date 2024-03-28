@@ -27,6 +27,6 @@
     "forceConsistentCasingInFileNames": true,
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "index.d.ts"],
   "exclude": ["node_modules"]
 }
